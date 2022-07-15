@@ -26,7 +26,8 @@ def rssFeed():
             "link" : mLink,
             "description" : mDescription
         }
-
-        mFeeds.append(mFeed)
+        if len(mFeeds) < 6:
+            mFeeds.append(mFeed)
+    print(len(mFeeds))
 
     return jsonify({"feeds" : mFeeds})
