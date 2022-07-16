@@ -50,7 +50,8 @@ def mInstagramFeed():
                 mPhotoLink = {
                     "src" : (mLink['data-full-res'])
                 }
-                mPhotoFeed.append(mPhotoLink)
+                if len(mPhotoFeed) < 20:
+                    mPhotoFeed.append(mPhotoLink)
 
         except KeyError:
             continue
