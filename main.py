@@ -31,3 +31,32 @@ def rssFeed():
     print(len(mFeeds))
 
     return jsonify({"feeds" : mFeeds})
+
+
+
+@app.route("/mInstagram", methods=["GET"])
+def mInstagramFeed():
+
+    url = 'https://mfmejigboregion7lagos.org/blog/instagram-feed/'
+    # mImageURL = 'https://mfmejigboregion7lagos.org/blog/wp-content/uploads/sb-instagram-feed-images/%s_nfull.jpg' % mImageID
+    r = requests.get(url)
+    soup = BeautifulSoup(r.text, 'html.parser')
+    mPhotoFeed = []
+    for mLink in soup.find_all('a'):
+        try:
+            mPhoto = mLink['class'][0]
+            
+            if mPhoto == 'sbi_photo':
+                mPhotoLink = {
+                    "src" : (mLink['data-full-res'])
+                }
+                mPhotoFeed.append(mPhotoLink)
+
+        except KeyError:
+            continue
+
+    
+
+
+
+    return jsonify({"mPhotoFeed" : mPhotoFeed})
